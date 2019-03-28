@@ -14,6 +14,7 @@ import { createRootReducer } from "./reducers";
 import { composeWithDevTools } from "redux-devtools-extension";
 
 import './index.css';
+import 'typeface-roboto'
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
