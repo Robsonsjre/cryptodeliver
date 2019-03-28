@@ -1,0 +1,43 @@
+.header-container {
+  height: 100px;
+  left: 0;
+  top: 0;
+  position: fixed;
+  background-color: #000;
+  border-bottom: 1px solid #ccc;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+}
+
+.header-logo {
+  margin-left: 3em;
+}
+
+.header-address {
+  display: flex;
+  margin-right: 6em;
+  font-family: Roboto;
+
+  .address-container {
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+  }
+
+  .address-lineone {
+    font-family: RobotoLight;
+    text-transform: uppercase;
+    font-size: 12px;
+    color: white;
+  }
+
+  .address-linetwo {
+    color: #FCD500;
+    font-weight: 900;
+  }
+}
