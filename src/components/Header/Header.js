@@ -1,5 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import "./styles.scss";
+
 import Logo from "../../cryptodelivery_logo.png";
 
 const Header = props => {
@@ -8,7 +11,7 @@ const Header = props => {
       <div className="header-logo">
         <img src={Logo} alt="crypto_delivery_logo" />
       </div>
-      {props.current.address ? (
+      {props.address ? (
         <div className="header-address">
           <div>
             <i
@@ -24,15 +27,22 @@ const Header = props => {
               location_on
             </i>
           </div>
-
           <div className="address-container">
             <div className="address-lineone">Deliver Address</div>
-            <div className="address-linetwo">{props.current.address}</div>
+            <div className="address-linetwo">{props.address}</div>
           </div>
         </div>
       ) : null}
     </nav>
   );
+};
+
+Header.propTypes = {
+  address: PropTypes.string
+};
+
+Header.defaultProps = {
+  address: ""
 };
 
 export default Header;

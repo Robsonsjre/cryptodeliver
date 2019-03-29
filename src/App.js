@@ -6,9 +6,9 @@ import getWeb3 from "./components/utils/getWeb3";
 
 import logo from "./logo.svg";
 import "./App.css";
-import Header from "./components/Header/Header"
-import Footer from "./components/Footer/Footer"
-import AddressBox from "./components/AddressBox/AddressBox"
+import Header from "./components/Header/Header";
+import Footer from "./components/Footer/Footer";
+import AddressBox from "./components/AddressBox/AddressBox";
 
 const Teste = () => <div> Teste </div>;
 
@@ -38,12 +38,15 @@ class App extends Component {
       <div className="App">
         <BrowserRouter>
           <div>
-            <Header current={{address: "London Bridge, 128"}} />
+            <Header {...this.props.current} />
             <Switch>
-              <Route exact path="/" component={AddressBox} />
-              <Route path="/admin" component={Teste} />
+              <div className="content-container">
+                <Route exact path="/" component={AddressBox} />
+                <Route path="/products" component={Teste} />
+                <Route path="/admin" component={Teste} />
+              </div>
             </Switch>
-            <Footer />
+            <Footer {...this.props.current} />
           </div>
         </BrowserRouter>
       </div>
@@ -53,7 +56,7 @@ class App extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    state: state
+    current: state.current
   };
 };
 

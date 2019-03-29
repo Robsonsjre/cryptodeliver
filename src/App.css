@@ -31,3 +31,11 @@
     transform: rotate(360deg);
   }
 }
+
+.content-container {
+  width: 90%;
+  height: 74vh;
+  padding-top: 10vh;
+  margin-left: 5%;
+  margin-right: 5%;
+}
