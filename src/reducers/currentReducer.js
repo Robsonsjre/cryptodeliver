@@ -7,7 +7,7 @@ import _ from "lodash";
 const products = [
   {
     id: 1,
-    name: "Skol 355ml - Unit",
+    name: "Pepsi 355ml - Unit",
     imgUrl:
       "https://s3-us-west-2.amazonaws.com/courier-images-prod/product/00009207_5a962b14-f4ff-4233-8f14-eacb824f8b0b.jpg",
     price: 0.3325
@@ -21,7 +21,7 @@ const products = [
   },
   {
     id: 3,
-    name: "Skol 355ml - Unit",
+    name: "Pepsi 355ml - Unit",
     imgUrl:
       "https://s3-us-west-2.amazonaws.com/courier-images-prod/product/00009207_5a962b14-f4ff-4233-8f14-eacb824f8b0b.jpg",
     price: 1.2

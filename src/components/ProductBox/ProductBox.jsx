@@ -45,7 +45,7 @@ ProductBox.defaultProps = {
 
 ProductBox.propTypes = {
   name: PropTypes.string,
-  price: PropTypes.string,
+  price: PropTypes.number,
   imgUrl: PropTypes.string,
   onClickButton: PropTypes.func
 }

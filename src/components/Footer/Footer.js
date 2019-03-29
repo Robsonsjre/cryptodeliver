@@ -32,7 +32,7 @@ const Footer = props => {
           >
             shopping_cart
           </i>
-          <div style={{width: "120px"}}>GO DELIVER NOW!</div>
+          <div onClick={() => props.payCart()} style={{width: "120px"}}>GO DELIVER NOW!</div>
         </div>
       </div>
     </div>
@@ -41,12 +41,10 @@ const Footer = props => {
 
 Footer.propTypes = {
   address: PropTypes.string,
-  totalValue: PropTypes.number
 };
 
 Footer.defaultProps = {
   address: "",
-  totalValue: "0000"
 };
 
 export default Footer;
