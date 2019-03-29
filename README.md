@@ -1,68 +1,154 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+. [Overview](#overview)
+1. [Project stack](#project-stack)
+1. [Initial Boilerplate for React-Redux-Router](#initial-boilerplate-for-react-redux-router)
+1. [Setup Client React Setup](#setup-client-react-setup)
+1. [Deployment proccess](#deployment-proccess)
 
-## Available Scripts
+## Overview
+=====================
 
-In the project directory, you can run:
+Its necessary to run inside Mainframe Client
 
-### `npm start`
+````javascript
+yarn install
+yarn start
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+http://localhost:3000
+````
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Project Stack
 
-### `npm test`
+- Node.js
+- Firebase
+- React & Redux
+- Mainframe OS
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Setup Client React Setup
+````javascript
+1) Install React App //Voltar na aula que ele ensinou isso, já não lembro o que tenho que fazer
+````
 
-### `npm run build`
+## Initial Boilerplate for React-Redux-Router
+======================
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Import materialize direct, better for performance keep the style out of javascript
+- Create store and applyMiddleware with reduxThunk
+- Envolve the first react component App.js with provider passing store as props
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+````javascript
+//index.js
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+import "materialize-css/dist/css/materialize.min.css"
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { createStore, applyMiddleware } from "redux";
+import reduxThunk from 'redux-thunk'
 
-### `npm run eject`
+import App from "./components/App";
+import reducers from "./reducers"
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+const store = createStore(reducers, applyMiddleware(reduxThunk));
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+// Envolve the first top component with provider to give access to store from
+//all components and pass store as a props.
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.querySelector("#root") //Id root at index.html
+);
+````
+````javascript
+//components/App.js
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+import "materialize-css/dist/css/materialize.min.css";
+import React, { Component } from "react";
+import { BrowserRouter, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import * as actions from "../actions";
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+import Header from "./Header";
+import Landing from "./Landing";
+const Dashboard = () => <h2>Dashboard</h2>;
 
-## Learn More
+class App extends Component {
+  componentDidMount() {
+    this.props.fetchUser();
+  }
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+  render() {
+    return (
+      <div>
+        <BrowserRouter>
+          <div className="container">
+            <Header />
+            <Route path="/surveys" component={Dashboard} />
+          </div>
+        </BrowserRouter>
+      </div>
+    );
+  }
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+export default connect(
+  null,
+  actions
+)(App);
+````
+````javascript
+//reducers/index.js
 
-### Code Splitting
+import { combineReducers } from "redux";
+import authReducer from "./dummyReducer";
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+export default combineReducers({
+  auth: dummyReducer
+})
 
-### Analyzing the Bundle Size
+````
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+````javascript
+//reducers/dummyReducer.js
 
-### Making a Progressive Web App
+import { FETCH_USER } from '../actions/types'
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
+export default function(state = null, action) {
+  switch (action.type) {
+    case FETCH_USER:
+      return action.payload || false
 
-### Advanced Configuration
+    default:
+      return state;
+  }
+}
+````
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
+````javascript
+//actions/index.js
 
-### Deployment
+import axios from "axios";
+import { FETCH_USER } from "./types";
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
+export const fetchUser = () => async dispatch => {
+    const res = await axios.get("/api/teste")
 
-### `npm run build` fails to minify
+    dispatch({ type: FETCH_USER, payload: res.data });
+};
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+````
+
+````javascript
+//actions/types.js
+
+export const FETCH_USER = 'fetch_user'
+````
+
+## Email Provider Setup
+
+Provider: SendGrid
+
+1) Create account
+2) Create API KEY: Settings > API KEY > Create your API KEY
+3) Put the Key into the config/dev/key.js file and create the env variable into prod/key, add it to the env variables on Heroku/AWS
+4) Install the npm module: sendgrid
