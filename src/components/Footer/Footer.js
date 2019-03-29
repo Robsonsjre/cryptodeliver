@@ -1,18 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { calcCartTotal } from "../../utils"
 
 import "./styles.scss";
 
 const Footer = props => {
   const buttonColor = props.address ? "black" : "rgba(0, 0, 0, 0.22)"
+  const cartTotalString = calcCartTotal(props.products, props.cart).toString()
+  const firstPart = cartTotalString.split('.')[0]
+  const secondPart = cartTotalString.split('.')[1]
   return (
     <div className="footer-container">
       <div className="footer-itens-box">
         <div className="products-cart-total">TOTAL</div>
         <div className="products-cart-value">
           <span className="products-cart-currency">ETH</span>
-          <span className="products-cart-price">0.</span>
-          <span className="products-cart-cents">{props.totalValue}</span>
+          <span className="products-cart-price">{`${firstPart}.`}</span>
+          <span className="products-cart-cents">{secondPart}</span>
         </div>
       </div>
       <div className="products-cart-button" style={{backgroundColor: buttonColor}}>

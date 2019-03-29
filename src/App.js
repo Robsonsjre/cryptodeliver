@@ -4,11 +4,12 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import getWeb3 from "./components/utils/getWeb3";
 
-import logo from "./logo.svg";
 import "./App.css";
+
 import Header from "./components/Header/Header";
 import Footer from "./components/Footer/Footer";
 import AddressBox from "./components/AddressBox/AddressBox";
+import ProductGrid from "./components/ProductGrid/ProductGrid";
 
 const Teste = () => <div> Teste </div>;
 
@@ -42,7 +43,7 @@ class App extends Component {
             <Switch>
               <div className="content-container">
                 <Route exact path="/" component={AddressBox} />
-                <Route path="/products" component={Teste} />
+                <Route path="/products" component={ProductGrid} />
                 <Route path="/admin" component={Teste} />
               </div>
             </Switch>
