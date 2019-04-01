@@ -1,6 +1,8 @@
 import {
   CHANGE_CURRENT_ADDRESS,
-  CHANGE_PRODUCT_QUANTITY
+  CHANGE_PRODUCT_QUANTITY,
+  CLEAN_CART,
+  CHANGE_PAYMENT_STATUS
 } from "../actions/types";
 import _ from "lodash";
 
@@ -10,35 +12,35 @@ const products = [
     name: "Pepsi 355ml - Unit",
     imgUrl:
       "https://s3-us-west-2.amazonaws.com/courier-images-prod/product/00009207_5a962b14-f4ff-4233-8f14-eacb824f8b0b.jpg",
-    price: 0.3325
+    price: 0.1325
   },
   {
     id: 2,
     name: "Wine - Unit",
     imgUrl:
       "https://s3-us-west-2.amazonaws.com/courier-images-prod/product/00009708_7bc77de9-c1e5-4359-a297-9920821720df.jpg",
-    price: 1
+    price: 0.002
   },
   {
     id: 3,
     name: "Pepsi 355ml - Unit",
     imgUrl:
       "https://s3-us-west-2.amazonaws.com/courier-images-prod/product/00009207_5a962b14-f4ff-4233-8f14-eacb824f8b0b.jpg",
-    price: 1.2
+    price: 0.075
   },
   {
     id: 4,
     name: "Soda 200ml - Unit",
     imgUrl:
       "https://s3-us-west-2.amazonaws.com/courier-images-prod/product/00009210_a615b544-994b-4598-a2e2-0671b641d4ff.jpg",
-    price: 0.12
+    price: 0.0012
   },
   {
     id: 5,
     name: "Wine- Unit",
     imgUrl:
       "https://s3-us-west-2.amazonaws.com/courier-images-prod/product/00009708_7bc77de9-c1e5-4359-a297-9920821720df.jpg",
-    price: 0.12
+    price: 0.02
   }
 ];
 
@@ -47,7 +49,7 @@ const initialState = {
   products: products,
   cart: [],
   address: "",
-  totalPrice: 0
+  paymentStatus: ""
 };
 
 export default function(state = initialState, action) {
@@ -117,6 +119,18 @@ export default function(state = initialState, action) {
         });
       }
       break
+
+      case CHANGE_PAYMENT_STATUS:
+      return Object.assign({}, state, {
+        paymentStatus: action.payload.status
+      });
+
+      case CLEAN_CART:
+      return Object.assign({}, state, {
+        paymentStatus: "",
+        cart: [],
+        address: ""
+      });
 
     default:
       return state;

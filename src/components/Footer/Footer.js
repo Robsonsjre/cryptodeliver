@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { calcCartTotal } from "../../utils"
+import { withRouter } from "react-router-dom";
 
 import "./styles.scss";
 
-const Footer = props => {
+const Footer = withRouter((props) => {
   const buttonColor = props.address ? "black" : "rgba(0, 0, 0, 0.22)"
   const cartTotalString = calcCartTotal(props.products, props.cart).toString()
   const firstPart = cartTotalString.split('.')[0]
@@ -32,12 +33,12 @@ const Footer = props => {
           >
             shopping_cart
           </i>
-          <div onClick={() => props.payCart()} style={{width: "120px"}}>GO DELIVER NOW!</div>
+          <div onClick={() => props.history.push('/payments')} style={{width: "120px"}}>GO DELIVER NOW!</div>
         </div>
       </div>
     </div>
   );
-};
+});
 
 Footer.propTypes = {
   address: PropTypes.string,

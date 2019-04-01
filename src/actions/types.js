@@ -1,2 +1,5 @@
 export const CHANGE_CURRENT_ADDRESS = 'change_current_address'
-export const CHANGE_PRODUCT_QUANTITY = 'change_product_quantity' 
+export const CHANGE_PRODUCT_QUANTITY = 'change_product_quantity'
+export const CHANGE_PAYMENT_STATUS = 'change_payment_status'
+export const CONFIG_WEB3 = 'config_web3'
+export const CLEAN_CART = 'clean_cart'
